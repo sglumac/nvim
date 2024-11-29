@@ -14,6 +14,10 @@ return {
     config = function()
       require('lspconfig').clangd.setup{}
       require('lspconfig').lua_ls.setup{}
+
+      -- Set keybinding for applying LSP code actions
+      vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
+
     end,
   },
 }

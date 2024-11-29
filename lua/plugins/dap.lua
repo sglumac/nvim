@@ -44,6 +44,27 @@ return {
 
       -- Reuse the same configuration for C files
       dap.configurations.c = dap.configurations.cpp
+      -- Set a breakpoint
+      vim.api.nvim_set_keymap('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', { noremap = true, silent = true })
+
+      -- Start or continue debugging
+      vim.api.nvim_set_keymap('n', '<leader>dr', ':lua require("dap").continue()<CR>', { noremap = true, silent = true })
+
+      -- Stop debugging
+      vim.api.nvim_set_keymap('n', '<leader>dq', ':lua require("dap").terminate()<CR>:lua require("dapui").close()<CR>', { noremap = true, silent = true })
+
+      -- Step over a function
+      vim.api.nvim_set_keymap('n', '<leader>n', ':lua require("dap").step_over()<CR>', { noremap = true, silent = true })
+
+      -- Step into a function
+      vim.api.nvim_set_keymap('n', '<leader>s', ':lua require("dap").step_into()<CR>', { noremap = true, silent = true })
+
+      -- Step out of a function
+      vim.api.nvim_set_keymap('n', '<leader>o', ':lua require("dap").step_out()<CR>', { noremap = true, silent = true })
+
+      -- Open or close the DAP UI
+      vim.api.nvim_set_keymap('n', '<leader>du', ':lua require("dapui")".toggle()<CR>', { noremap = true, silent = true })
+
     end,
   },
   {

@@ -2,6 +2,31 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    border = "rounded",
+    source = "always",
+    focusable = false,
+  },
+})
+
+-- Jump to the next diagnostic (warning or error)
+ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true })
+
+-- Jump to the previous diagnostic (warning or error)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { noremap = true, silent = true })
+
+
+-- Set tabs to 2 spaces
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true  -- Use spaces instead of tab characters
+vim.opt.softtabstop = 2
+
 -- Key mapping to easily edit this configuration file
 vim.api.nvim_set_keymap('n', '<leader>ev', ':e ~/.config/nvim/init.lua<CR>', { noremap = true, silent = true })
 
