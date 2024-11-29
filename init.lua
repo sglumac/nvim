@@ -1,9 +1,7 @@
 -- Disable warning "Undefined global `vim`"
 _G.vim = vim
 
--- Set the leader key to '\'
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+require("general")
 
 -- Ensure Lazy.nvim is installed
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -20,12 +18,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('plugins')
-
--- Key mappings for Telescope commands
-vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true }) -- Find files
-vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })  -- Live grep
-vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', { noremap = true, silent = true })   -- List buffers
-vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap = true, silent = true }) -- Help tags
 
 -- Jump to the next diagnostic (warning or error)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true })
@@ -62,6 +54,4 @@ vim.api.nvim_set_keymap('n', '<leader>o', ':lua require("dap").step_out()<CR>', 
 
 -- Open or close the DAP UI
 vim.api.nvim_set_keymap('n', '<leader>du', ':lua require("dapui")".toggle()<CR>', { noremap = true, silent = true })
-
-require("keymaps")
 

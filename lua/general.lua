@@ -1,3 +1,7 @@
+-- Set the leader key to '\'
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 -- Key mapping to easily edit this configuration file
 vim.api.nvim_set_keymap('n', '<leader>ev', ':e ~/.config/nvim/init.lua<CR>', { noremap = true, silent = true })
 
