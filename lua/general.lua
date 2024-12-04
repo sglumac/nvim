@@ -27,9 +27,6 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true  -- Use spaces instead of tab characters
 vim.opt.softtabstop = 2
 
--- Key mapping to easily edit this configuration file
-vim.api.nvim_set_keymap('n', '<leader>ev', ':e ~/.config/nvim/init.lua<CR>', { noremap = true, silent = true })
-
 -- General Neovim settings
 vim.opt.number = true  -- Enable line numbers
 
@@ -51,6 +48,12 @@ vim.api.nvim_set_keymap('n', '<leader>x', ':q!<CR>', { noremap = true, silent = 
 
 -- Quit the current window
 vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
+
+-- Window navigation
+vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
 -- Quit all open tabs and windows
 vim.api.nvim_set_keymap('n', '<leader>qa', ':qa<CR>', { noremap = true, silent = true })

@@ -1,26 +1,42 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    requires = { {'nvim-lua/plenary.nvim'}, {'nvim-tree/nvim-web-devicons'} },
     config = function()
-      require('telescope').setup({
+      require('telescope').setup{
         defaults = {
-          prompt_prefix = '> ',
-          selection_caret = '> ',
-          path_display = { 'smart' },
+          prompt_prefix = ": ",
+          selection_caret = "> ",
+          entry_prefix = "  ",
+          sorting_strategy = "ascending",
+          layout_strategy = "horizontal",
           layout_config = {
-            horizontal = { mirror = false },
-            vertical = { mirror = false },
+            horizontal = {
+              preview_width = 0.55,
+              results_width = 0.8,
+            },
+            vertical = {
+              mirror = false,
+            },
           },
-          file_ignore_patterns = { 'node_modules', '%.git/' },
+          file_ignore_patterns = { "node_modules", ".git/" },
+          winblend = 0,
+          border = {},
+          color_devicons = false,
         },
-      })
+        pickers = {
+          find_files = {
+            theme = "dropdown",
+          },
+        },
+      }
       require('telescope').load_extension('fzf')
 
       vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true }) -- Find files
       vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })  -- Live grep
       vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', { noremap = true, silent = true })   -- List buffers
       vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap = true, silent = true }) -- Help tags
+      vim.api.nvim_set_keymap('n', '<leader>fw', ':Telescope grep_string<CR>', { noremap = true, silent = true }) -- Grep for word under cursor
 
     end,
   },
