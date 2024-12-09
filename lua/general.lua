@@ -33,6 +33,12 @@ vim.opt.number = true  -- Enable line numbers
 -- Normal mode (use kj instead of Esc to exit)
 vim.api.nvim_set_keymap('i', 'kj', '<Esc>', { noremap = true, silent = true })
 
+-- Repeat the last recorded macro
+vim.api.nvim_set_keymap('n', '<leader>r', '@@', { noremap = true, silent = true })
+
+-- Open Neovim configuration
+vim.api.nvim_set_keymap('n', '<leader>ev', ':edit ~/.config/nvim/init.lua | lcd ~/.config/nvim<CR>', { noremap = true, silent = true })
+
 -- Copy to system clipboard (<leader>y) and paste from clipboard (<leader>p)
 vim.api.nvim_set_keymap('v', '<leader>y', '"+y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>p', '"+p', { noremap = true, silent = true })

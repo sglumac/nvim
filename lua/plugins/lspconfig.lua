@@ -20,6 +20,7 @@ return {
         },
         capabilities = require('cmp_nvim_lsp').default_capabilities()
       }
+
       require('lspconfig').lua_ls.setup{}
 
       -- Set keybinding for applying LSP code actions

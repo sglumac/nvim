@@ -1,3 +1,4 @@
+
 return {
   {
     "jay-babu/mason-nvim-dap.nvim",
@@ -6,11 +7,6 @@ return {
       require("mason-nvim-dap").setup({
         ensure_installed = { "codelldb" },
         automatic_installation = true,
-        handlers = {
-          function(config)
-            require("mason-nvim-dap.automatic_setup")(config)
-          end,
-        },
       })
     end,
   },
@@ -19,19 +15,22 @@ return {
     config = function()
       local dap = require('dap')
 
-      -- Set up LLDB Debug Adapter
-      dap.adapters.lldb = {
-        type = 'executable',
-        command = 'lldb-vscode',  -- Make sure lldb-vscode is installed and this points to the correct path
-        name = 'lldb',
+      -- Set up codelldb Debug Adapter
+      dap.adapters.codelldb = {
+        type = 'server',
+        port = "${port}",
+        executable = {
+          command = vim.fn.stdpath('data') .. '/mason/bin/codelldb', -- Ensure this is the correct path to codelldb installed by Mason
+          args = { "--port", "${port}" },
+        }
       }
 
       -- Debug Configuration for C++ and C files
       dap.configurations.cpp = {
         {
           name = 'Launch C++ Program',
-          type = 'lldb',           -- Matches the adapter name defined above
-          request = 'launch',      -- Launch mode
+          type = 'codelldb',        -- Matches the adapter name defined above
+          request = 'launch',       -- Launch mode
           program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
@@ -44,27 +43,31 @@ return {
 
       -- Reuse the same configuration for C files
       dap.configurations.c = dap.configurations.cpp
+
+      -- Key Mappings for Debug Actions
+      local keymap = vim.api.nvim_set_keymap
+      local opts = { noremap = true, silent = true }
+
       -- Set a breakpoint
-      vim.api.nvim_set_keymap('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', { noremap = true, silent = true })
+      keymap('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', opts)
 
       -- Start or continue debugging
-      vim.api.nvim_set_keymap('n', '<leader>dr', ':lua require("dap").continue()<CR>', { noremap = true, silent = true })
+      keymap('n', '<leader>dr', ':lua require("dap").continue()<CR>', opts)
 
-      -- Stop debugging
-      vim.api.nvim_set_keymap('n', '<leader>dq', ':lua require("dap").terminate()<CR>:lua require("dapui").close()<CR>', { noremap = true, silent = true })
+      -- Stop debugging and close DAP UI
+      keymap('n', '<leader>dq', ':lua require("dap").terminate()<CR>:lua require("dapui").close()<CR>', opts)
 
       -- Step over a function
-      vim.api.nvim_set_keymap('n', '<leader>n', ':lua require("dap").step_over()<CR>', { noremap = true, silent = true })
+      keymap('n', '<leader>dn', ':lua require("dap").step_over()<CR>', opts)
 
       -- Step into a function
-      vim.api.nvim_set_keymap('n', '<leader>s', ':lua require("dap").step_into()<CR>', { noremap = true, silent = true })
+      keymap('n', '<leader>ds', ':lua require("dap").step_into()<CR>', opts)
 
       -- Step out of a function
-      vim.api.nvim_set_keymap('n', '<leader>o', ':lua require("dap").step_out()<CR>', { noremap = true, silent = true })
+      keymap('n', '<leader>do', ':lua require("dap").step_out()<CR>', opts)
 
       -- Open or close the DAP UI
-      vim.api.nvim_set_keymap('n', '<leader>du', ':lua require("dapui")".toggle()<CR>', { noremap = true, silent = true })
-
+      keymap('n', '<leader>du', ':lua require("dapui").toggle()<CR>', opts)
     end,
   },
   {

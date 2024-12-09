@@ -18,38 +18,10 @@ return {
         },
         show_guides = true,
         filter_kind = false,
-        icons = {
-          Array = "[A]",          -- Use simple characters to represent types
-          Boolean = "[B]",
-          Class = "[C]",
-          Constant = "[CONST]",
-          Constructor = "[CTOR]",
-          Enum = "[E]",
-          EnumMember = "[EM]",
-          Event = "[EVT]",
-          Field = "[F]",
-          File = "[FILE]",
-          Function = "[FN]",      -- Use [FN] to represent functions
-          Interface = "[IF]",
-          Key = "[K]",
-          Method = "[M]",         -- Use [M] for methods
-          Module = "[MOD]",
-          Namespace = "[NS]",
-          Null = "[NULL]",
-          Number = "[#]",
-          Object = "[OBJ]",
-          Operator = "[OP]",
-          Package = "[PKG]",
-          Property = "[P]",
-          String = "[S]",
-          Struct = "[ST]",
-          TypeParameter = "[TP]",
-          Variable = "[V]",
-        },
         manage_folds = true,
         link_folds_to_tree = true,
         link_tree_to_folds = true,
-        nerd_font = false,       -- Disable nerd font to avoid using special icons
+        nerd_font = true,
         attach_mode = "global",
       })
 

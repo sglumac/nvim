@@ -5,6 +5,16 @@ return {
     config = function()
       require('telescope').setup{
         defaults = {
+          mappings = {
+            i = { -- Insert mode mappings
+              ["<C-j>"] = require('telescope.actions').move_selection_next, -- Move down
+              ["<C-k>"] = require('telescope.actions').move_selection_previous, -- Move up
+            },
+            n = { -- Normal mode mappings
+              ["<C-j>"] = require('telescope.actions').move_selection_next, -- Move down
+              ["<C-k>"] = require('telescope.actions').move_selection_previous, -- Move up
+            },
+          },
           prompt_prefix = ": ",
           selection_caret = "> ",
           entry_prefix = "  ",
@@ -34,9 +44,11 @@ return {
 
       vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true }) -- Find files
       vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })  -- Live grep
+      vim.api.nvim_set_keymap('v', '<leader>fg', ':lua require("telescope.builtin").live_grep({ default_text = vim.fn.getreg("\"") })<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', { noremap = true, silent = true })   -- List buffers
       vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap = true, silent = true }) -- Help tags
       vim.api.nvim_set_keymap('n', '<leader>fw', ':Telescope grep_string<CR>', { noremap = true, silent = true }) -- Grep for word under cursor
+      vim.api.nvim_set_keymap('n', '<leader>fs', ':Telescope lsp_document_symbols<CR>', { noremap = true, silent = true }) -- Grep for word under cursor
 
     end,
   },
