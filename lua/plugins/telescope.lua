@@ -8,6 +8,7 @@ return {
       { '<leader>fb', '<cmd>Telescope buffers<CR>', desc = "List Buffers" },
       { '<leader>fh', '<cmd>Telescope help_tags<CR>', desc = "Help Tags" },
       { '<leader>fw', '<cmd>Telescope grep_string<CR>', desc = "Grep Word Under Cursor" },
+      { '<leader>fz', '<cmd>Telescope grep_string search="" only_sort_text=true<CR>', desc = "Fuzzy Search" },
       { '<leader>fs', '<cmd>Telescope lsp_document_symbols<CR>', desc = "Document Symbols" },
     },
     config = function()
