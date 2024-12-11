@@ -2,15 +2,19 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'}, {'nvim-tree/nvim-web-devicons'} },
+    keys = {
+      { '<leader>ff', '<cmd>Telescope find_files<CR>', desc = "Find Files" },
+      { '<leader>fg', '<cmd>Telescope live_grep<CR>', desc = "Live Grep" },
+      { '<leader>fb', '<cmd>Telescope buffers<CR>', desc = "List Buffers" },
+      { '<leader>fh', '<cmd>Telescope help_tags<CR>', desc = "Help Tags" },
+      { '<leader>fw', '<cmd>Telescope grep_string<CR>', desc = "Grep Word Under Cursor" },
+      { '<leader>fs', '<cmd>Telescope lsp_document_symbols<CR>', desc = "Document Symbols" },
+    },
     config = function()
       require('telescope').setup{
         defaults = {
           mappings = {
             i = { -- Insert mode mappings
-              ["<C-j>"] = require('telescope.actions').move_selection_next, -- Move down
-              ["<C-k>"] = require('telescope.actions').move_selection_previous, -- Move up
-            },
-            n = { -- Normal mode mappings
               ["<C-j>"] = require('telescope.actions').move_selection_next, -- Move down
               ["<C-k>"] = require('telescope.actions').move_selection_previous, -- Move up
             },
@@ -32,30 +36,34 @@ return {
           file_ignore_patterns = { "node_modules", ".git/" },
           winblend = 0,
           border = {},
-          color_devicons = false,
+          color_devicons = true,
         },
         pickers = {
           find_files = {
             theme = "dropdown",
           },
+          live_grep = {
+            only_sort_text = true, -- Ensure fuzzy matching is applied
+          },
+        },
+        extensions = {
+          fzf = {
+            fuzzy = true,                    -- Enable fuzzy matching
+            override_generic_sorter = true,  -- Replace the default generic sorter
+            override_file_sorter = true,     -- Replace the default file sorter
+            case_mode = "smart_case",        -- Smart case matching
+          },
         },
       }
-      require('telescope').load_extension('fzf')
-
-      vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true }) -- Find files
-      vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })  -- Live grep
-      vim.api.nvim_set_keymap('v', '<leader>fg', ':lua require("telescope.builtin").live_grep({ default_text = vim.fn.getreg("\"") })<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', { noremap = true, silent = true })   -- List buffers
-      vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap = true, silent = true }) -- Help tags
-      vim.api.nvim_set_keymap('n', '<leader>fw', ':Telescope grep_string<CR>', { noremap = true, silent = true }) -- Grep for word under cursor
-      vim.api.nvim_set_keymap('n', '<leader>fs', ':Telescope lsp_document_symbols<CR>', { noremap = true, silent = true }) -- Grep for word under cursor
-
     end,
   },
   {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
-    dependencies = { 'nvim-telescope/telescope.nvim' },
-  },
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",  -- Compiles the native binary
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("telescope").load_extension("fzf")
+    end,
+  }
 }
 
