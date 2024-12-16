@@ -70,3 +70,6 @@ vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnew<CR>', { noremap = true, sile
 -- Shortcut to copy the last message to the system clipboard
 vim.api.nvim_set_keymap('n', '<leader>my', ':lua vim.fn.setreg("+", vim.fn.execute("messages"))<CR>', { noremap = true, silent = true })
 
+-- Rename symbol and all its references
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { noremap = true, silent = true })
+
