@@ -4,7 +4,8 @@ return {
     dependencies = { 'williamboman/mason.nvim' },
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'clangd', 'lua_ls' },
+        ensure_installed = { 'clangd', 'lua_ls', 'cmake' },
+        automatic_installation = true,
       })
     end,
   },
@@ -12,7 +13,8 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = { 'williamboman/mason-lspconfig.nvim' },
     config = function()
-      require('lspconfig').clangd.setup{
+      local lspconfig = require('lspconfig')
+      lspconfig.clangd.setup{
         cmd = {
           "clangd",
           "--background-index=false",  -- Disables background indexing to prevent excessive memory usage
@@ -21,7 +23,14 @@ return {
         capabilities = require('cmp_nvim_lsp').default_capabilities()
       }
 
-      require('lspconfig').lua_ls.setup{}
+      lspconfig.lua_ls.setup{}
+
+      lspconfig.lua_ls.setup{}
+      lspconfig.cmake.setup({
+        flags = {
+          debounce_text_changes = 150,
+        },
+      })
 
       -- Set keybinding for applying LSP code actions
       vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
