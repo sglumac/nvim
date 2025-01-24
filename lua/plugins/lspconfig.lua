@@ -26,11 +26,7 @@ return {
       lspconfig.lua_ls.setup{}
 
       lspconfig.lua_ls.setup{}
-      lspconfig.cmake.setup({
-        flags = {
-          debounce_text_changes = 150,
-        },
-      })
+      lspconfig.cmake.setup{}
 
       -- Set keybinding for applying LSP code actions
       vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
