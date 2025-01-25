@@ -43,6 +43,7 @@ return {
         pickers = {
           find_files = {
             theme = "dropdown",
+            hidden = true,
           },
           live_grep = {
             only_sort_text = true, -- Ensure fuzzy matching is applied
