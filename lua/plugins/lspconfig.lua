@@ -4,7 +4,7 @@ return {
     dependencies = { 'williamboman/mason.nvim' },
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'clangd', 'lua_ls', 'cmake' },
+        ensure_installed = { 'clangd', 'lua_ls', 'cmake', 'pyright' },
         automatic_installation = true,
       })
     end,
@@ -24,15 +24,14 @@ return {
       }
 
       lspconfig.lua_ls.setup{}
-
-      lspconfig.lua_ls.setup{}
       lspconfig.cmake.setup{}
+      lspconfig.pyright.setup{}
 
       -- Set keybinding for applying LSP code actions
       vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })
-
+      vim.api.nvim_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
     end,
   },
 }
