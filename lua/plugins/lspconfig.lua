@@ -14,13 +14,16 @@ return {
     dependencies = { 'williamboman/mason-lspconfig.nvim' },
     config = function()
       local lspconfig = require('lspconfig')
+      local clangdcapabilities = require('cmp_nvim_lsp').default_capabilities()
+      clangdcapabilities.offsetEncoding = { "utf-8" }
+
       lspconfig.clangd.setup{
         cmd = {
           "clangd",
           "--background-index=false",  -- Disables background indexing to prevent excessive memory usage
           "--log=verbose",             -- Increases verbosity for debugging
         },
-        capabilities = require('cmp_nvim_lsp').default_capabilities()
+        capabilities = clangdcapabilities,
       }
 
       lspconfig.lua_ls.setup{}
