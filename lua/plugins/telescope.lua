@@ -15,6 +15,7 @@ return {
     config = function()
       require('telescope').setup{
         defaults = {
+          path_display = { "truncate" },
           mappings = {
             i = { -- Insert mode mappings
               ["<C-j>"] = require('telescope.actions').move_selection_next, -- Move down
@@ -44,6 +45,7 @@ return {
           find_files = {
             theme = "dropdown",
             hidden = true,
+            previewer = true,
           },
           live_grep = {
             only_sort_text = true, -- Ensure fuzzy matching is applied
