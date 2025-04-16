@@ -76,3 +76,7 @@ vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { noremap = true, silent =
 -- Clear search highlight
 vim.keymap.set('n', '<leader>nl', ':nohlsearch<CR>', { desc = 'Clear search highlight' })
 
+-- Color scheme
+vim.opt.termguicolors = true
+vim.opt.background = "light"
+
